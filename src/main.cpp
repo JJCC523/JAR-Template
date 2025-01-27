@@ -216,6 +216,28 @@ int intakeFunction(){
   }
 }
 
+float downPos = 0;
+float grabPos = 20;
+float neutral = 50;
+//assume there is a rotation backpack
+int backpack(){
+  while(true){
+    if(Controller.buttonL1.pressing()){
+      lb.spin(forward,100,pct);
+    }
+    else if(Controller.buttonL2.pressing()){
+      lb.spin(reverse,100,pct);
+    }
+    else{
+      if(backpack.position(degrees)<10){
+        lb.spinToPosition(downPos, degrees);
+      }
+      else if(backpack.position(degrees)>10){
+        lb.spinToPosition(grabPos*3, degrees);
+      }
+    }
+}
+
 void usercontrol(void) {
   // User control code here, inside the loop
   thread I(intakeFunction);
