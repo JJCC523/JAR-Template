@@ -6,6 +6,7 @@ using code = vision::code;
 
 // A global instance of brain used for printing to the V5 Brain screen.
 brain  Brain;
+controller Controller = controller(primary);
 motor l1 = motor(PORT1, true);
 motor l2 = motor(PORT1, false);
 motor l3 = motor(PORT1, true);
