@@ -204,12 +204,21 @@ void autonomous(void) {
 
 int intakeFunction(){
   while(true){
-    if()
+    if(Controller.buttonR1.pressing()){
+      Intake.spin(forward,100,percent);
+    }
+    else if(Controller.buttonR2.pressing()){
+      Intake.spin(reverse,100,pct);
+    }
+    else{
+      Intake.stop();
+    }
   }
 }
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  thread I(intakeFunction);
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
