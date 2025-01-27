@@ -38,19 +38,19 @@ Drive chassis(
 //HOLONOMIC_TWO_ROTATION
 //
 //Write it here:
-ZERO_TRACKER_NO_ODOM,
+TANK_TWO_ROTATION,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(),
+motor_group(l1, l2, l3),
 
 //Right Motors:
-motor_group(),
+motor_group(r1, r2, r3),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT1,
+PORT8,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -84,24 +84,24 @@ PORT3,     -PORT4,
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
 //If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-3,
+PORT4,
 
 //Input the Forward Tracker diameter (reverse it to make the direction switch):
-2.75,
+2,
 
 //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
 //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
 //This distance is in inches:
--2,
+-0.5,
 
 //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-1,
+PORT5,
 
 //Sideways tracker diameter (reverse to make the direction switch):
--2.75,
+2,
 
 //Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-5.5
+3
 
 );
 
@@ -125,7 +125,7 @@ void pre_auton() {
     Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
     Brain.Screen.printAt(5, 40, "Battery Percentage:");
     Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
-    Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
+    Brain.Screen.printAt(5, 80, "Chassis Heading Reading: %f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     switch(current_auton_selection){
@@ -144,23 +144,14 @@ void pre_auton() {
       case 4:
         Brain.Screen.printAt(5, 140, "Auton 5");
         break;
-      case 5:
-        Brain.Screen.printAt(5, 140, "Auton 6");
-        break;
-      case 6:
-        Brain.Screen.printAt(5, 140, "Auton 7");
-        break;
-      case 7:
-        Brain.Screen.printAt(5, 140, "Auton 8");
-        break;
     }
     if(Brain.Screen.pressing()){
       while(Brain.Screen.pressing()) {}
       current_auton_selection ++;
-    } else if (current_auton_selection == 8){
+    } else if (current_auton_selection == 5){
       current_auton_selection = 0;
     }
-    task::sleep(10);
+    wait(10, msec);
   }
 }
 
@@ -210,6 +201,12 @@ void autonomous(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+
+int intakeFunction(){
+  while(true){
+    if()
+  }
+}
 
 void usercontrol(void) {
   // User control code here, inside the loop
